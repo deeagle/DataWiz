@@ -1,0 +1,12 @@
+---
+services:
+  datawiz:
+    image: datawiz:local
+    container_name: "datawiz"
+    environment:
+      TZ: Europe/Berlin
+    networks:
+      - default
+    ports:
+      - "8080:8080"
+    restart: "no"
