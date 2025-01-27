@@ -1,12 +1,32 @@
 ---
 services:
   datawiz:
-    image: datawiz:local
-    container_name: "datawiz"
+    image: datawiz/datawiz:local
+    container_name: "datawiz-web"
     environment:
       TZ: Europe/Berlin
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     networks:
       - default
     ports:
       - "8080:8080"
     restart: "no"
+  database:
+    image: mariadb:10.6.20
+    container_name: "datawiz-db"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    restart: no
+  spss:
+    image: datawiz/spss-api:local
+    container_name: "datawiz-spss"
+    ports:
+      - "8081:8081"
+    restart: "no"
+
